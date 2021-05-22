@@ -10,3 +10,15 @@ i.pi {
   z-index: 99;
   width: 100%;
 }
+
+#content-body {
+  padding-top: 120px;
+  position: absolute;
+  left: 190px;
+}
+
+@media only screen and (max-width: 1000px) {
+  #content-body {
+    left: 80px;
+  }
+}
