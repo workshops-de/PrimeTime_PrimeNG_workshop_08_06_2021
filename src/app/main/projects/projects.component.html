@@ -1,0 +1,43 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="projectForm" class="p-grid">
+  <p-panel class="p-col-12" header="Add Project">
+    <div class="p-grid">
+      <label class="p-col-12 p-md-2" for="projectId">Project Id*</label>
+
+      <input type="text" pInputText class="p-col-12 p-md-5" formControlName="projectId" id="projectId">
+
+      <div class="p-col-12 p-md-5">
+        <app-validation-errors [form]="projectForm" field="projectId" nicename="Project ID"></app-validation-errors>
+      </div>
+    </div>
+
+    <div class="p-grid">
+      <label class="p-col-12" for="description">Description</label>
+      <p-editor [style]="{'height':'200px'}" class="p-col-12" formControlName="description" id="description"></p-editor>
+
+      <div class="p-col-12">
+        <app-validation-errors [form]="projectForm" field="description" nicename="Description"></app-validation-errors>
+      </div>
+    </div>
+
+    <div class="p-grid">
+      <p-fieldset [collapsed]="false" [toggleable]="true" class="p-col-12" legend="Project Type">
+        <p-radioButton formControlName="projectType" label="Front End" name="projectType" value="F"></p-radioButton>
+        <p-radioButton formControlName="projectType" label="Backend End" name="projectType" value="B"></p-radioButton>
+        <p-radioButton formControlName="projectType" label="Operations" name="projectType" value="O"></p-radioButton>
+      </p-fieldset>
+    </div>
+
+    <div class="p-grid">
+      <label class="p-col-12 p-md-2" for="devs">Assigned Devs</label>
+      <p-listbox [filter]="true" [multiple]="true" [options]="allDevs" class="p-col-12 p-md-10"
+                 formControlName="selectedDevs" id="devs">
+        <ng-template let-dev pTemplate="item">
+          <img alt="avatar" class="avatar" src="http://i.pravatar.cc/100?u={{dev.label}}">
+          <span class="devName">{{dev.value}}</span>
+        </ng-template>
+      </p-listbox>
+    </div>
+
+    <button [disabled]="hasFormErrors()"  icon="pi pi-save" label="Save" pButton type="submit"></button>
+  </p-panel>
+</form>
