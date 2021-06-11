@@ -1,0 +1,68 @@
+<div class="header p-col-12">
+  <h2>
+    {{ day }}
+  </h2>
+  <h3>
+    {{ dateAndMonth }}
+  </h3>
+</div>
+
+<p-tabView (onChange)="onChangeTabs($event)" class="p-col-12">
+  <p-tabPanel *ngFor="let tab of daysOfWeek" header="{{tab}}">
+    <p-table [value]="getTimesForDay(tab)" class="timesheet-grid">
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let column of columns"
+              scope="col">
+            {{column.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template let-rowData pTemplate="body">
+        <tr>
+          <td *ngFor="let column of columns">
+            {{rowData[column.field]}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-tabPanel>
+</p-tabView>
+
+<button (click)="displayEditDialog = true" label="Add Time Entry" pButton></button>
+
+<p-dialog [(visible)]="displayEditDialog"
+          [modal]="true"
+          [ngSwitch]="dialogStepIndex"
+          header="Create Time"
+          styleClass="displayEditDialog">
+  <div class="dialogBody">
+    <p-steps [(activeIndex)]="dialogStepIndex"
+             [model]="dialogSteps"
+             [readonly]="false"
+             styleClass="steps"></p-steps>
+    <div class="step" *ngSwitchCase="StepNames.TimeStep">
+      <p-calendar [(ngModel)]="selectedDate"
+                  appendTo="body"></p-calendar>
+    </div>
+    <div class="step" *ngSwitchCase="StepNames.ProjectStep">
+      <p-tree [(selection)]="selectedProject"
+              [value]="projectsTree"
+              layout="horizontal"
+              selectionMode="single"></p-tree>
+    </div>
+    <div class="step" *ngSwitchCase="StepNames.PeopleStep">
+      <p-dataView [paginator]="true" [rows]="4" [value]="people">
+        <ng-template let-person pTemplate="listItem">
+          <p-panel class="p-col-12 p-md-3" header="{{person.firstName}} {{person.lastName}}">
+            <img [pTooltip]="person.email" [src]="person.avatar" alt="avatar" tooltipPosition="bottom">
+          </p-panel>
+        </ng-template>
+      </p-dataView>
+    </div>
+  </div>
+  <p-footer>
+    <button (click)="saveNewEntry()" icon="pi pi-check" label="Save" pButton></button>
+    <button (click)="cancelDialog()" class="p-button-secondary" icon="pi pi-times" label="Cancel" pButton></button>
+  </p-footer>
+</p-dialog>

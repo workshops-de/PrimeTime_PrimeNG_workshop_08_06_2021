@@ -12,13 +12,25 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { FieldsetModule } from 'primeng/fieldset';
 import { EditorModule } from 'primeng/editor';
 import { ListboxModule } from 'primeng/listbox';
+import { TimesComponent } from './times/times.component';
+import { TableModule } from 'primeng/table';
+import { TimesheetComponent } from './timesheet/timesheet.component';
+import { TabViewModule } from 'primeng/tabview';
+import { DialogModule } from 'primeng/dialog';
+import { StepsModule } from 'primeng/steps';
+import { CalendarModule } from 'primeng/calendar';
+import { TreeModule } from 'primeng/tree';
+import { DataViewModule } from 'primeng/dataview';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
 @NgModule({
   declarations: [
     ProjectsComponent,
-    ValidationErrorsComponent
+    ValidationErrorsComponent,
+    TimesComponent,
+    TimesheetComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +44,15 @@ import { ListboxModule } from 'primeng/listbox';
     EditorModule,
     RadioButtonModule,
     FieldsetModule,
-    ListboxModule
+    ListboxModule,
+    TableModule,
+    TabViewModule,
+    DialogModule,
+    StepsModule,
+    CalendarModule,
+    TreeModule,
+    DataViewModule,
+    TooltipModule
   ]
 })
 export class MainModule { }
